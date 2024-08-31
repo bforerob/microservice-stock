@@ -1,10 +1,10 @@
 package com.microservice.stock.configuration.exceptionhandler;
 
-import com.microservice.stock.adapters.driven.jpa.mysql.exception.CategoryAlreadyExistsException;
+import com.microservice.stock.domain.exception.AlreadyExistsException;
 import com.microservice.stock.configuration.Constants;
 import com.microservice.stock.domain.exception.EmptyFieldException;
 import com.microservice.stock.domain.exception.LengthFieldException;
-import com.microservice.stock.domain.util.DomainConstants;
+import com.microservice.stock.domain.exception.NullFieldException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +24,12 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
+    @ExceptionHandler(NullFieldException.class)
+    public ResponseEntity<ExceptionResponse> handleNullFieldException(NullFieldException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.NULL_FIELD_EXCEPTION_MESSAGE, exception.getMessage()),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
 
     @ExceptionHandler(LengthFieldException.class)
     public ResponseEntity<ExceptionResponse> handleLengthFieldException(LengthFieldException exception) {
@@ -32,9 +38,10 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
-    @ExceptionHandler(CategoryAlreadyExistsException.class)
-    public ResponseEntity<ExceptionResponse> handleSupplierAlreadyExistsException(CategoryAlreadyExistsException exception) {
-        return ResponseEntity.badRequest().body(new ExceptionResponse(Constants.CATEGORY_ALREADY_EXISTS_EXCEPTION_MESSAGE,
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponse> handleSupplierAlreadyExistsException(AlreadyExistsException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 

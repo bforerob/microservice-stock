@@ -4,6 +4,8 @@ import com.microservice.stock.domain.model.Category;
 
 public interface ICategoryPersistencePort {
 
-    void saveCategory(Category category);
+    Category addCategory(Category category);
+    Boolean existsByName(String name);
+
 
 }
