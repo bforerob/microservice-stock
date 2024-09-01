@@ -12,7 +12,7 @@ public class DomainConstants {
         DESCRIPTION
     }
 
-    public static final Integer MAX_CHARACTERS_CATEGORY_NAME = 5;
-    public static final Integer MAX_CHARACTERS_CATEGORY_DESCRIPTION = 9;
+    public static final Integer MAX_CHARACTERS_CATEGORY_NAME = 50;
+    public static final Integer MAX_CHARACTERS_CATEGORY_DESCRIPTION = 90;
 
 }

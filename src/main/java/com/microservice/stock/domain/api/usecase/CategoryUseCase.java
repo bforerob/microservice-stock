@@ -25,7 +25,7 @@ public class CategoryUseCase implements ICategoryServicePort {
         if (category.getName().length() > DomainConstants.MAX_CHARACTERS_CATEGORY_NAME) {
             throw new LengthFieldException(DomainConstants.Field.NAME.toString());
         }
-        if(categoryPersistencePort.existsByName(category.getName())) {
+        if(Boolean.TRUE.equals(categoryPersistencePort.existsByName(category.getName()))) {
             throw new AlreadyExistsException(DomainConstants.Field.CATEGORY.toString());
         }
 
@@ -36,8 +36,8 @@ public class CategoryUseCase implements ICategoryServicePort {
             throw new LengthFieldException(DomainConstants.Field.DESCRIPTION.toString());
         }
 
-        categoryPersistencePort.addCategory(category);
-        return category;
+        return categoryPersistencePort.addCategory(category);
+
     }
 
 }

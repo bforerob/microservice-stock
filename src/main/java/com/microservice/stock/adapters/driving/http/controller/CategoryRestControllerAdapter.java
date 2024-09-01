@@ -25,10 +25,9 @@ public class CategoryRestControllerAdapter {
     private final ICategoryResponseMapper categoryResponseMapper;
 
     @PostMapping("/")
-    public ResponseEntity<AddCategoryRequest> addSupplier(@RequestBody AddCategoryRequest request) {
-        Category category = categoryRequestMapper.addRequestToCategory(request);
-        categoryServicePort.addCategory(category);
-        return ResponseEntity.status(HttpStatus.CREATED).body(request);
+    public ResponseEntity<CategoryResponse> addCategory(@RequestBody AddCategoryRequest request) {
+        Category createdCategory = categoryServicePort.addCategory(categoryRequestMapper.addRequestToCategory(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseMapper.toCategoryResponse(createdCategory));
     }
 
 }

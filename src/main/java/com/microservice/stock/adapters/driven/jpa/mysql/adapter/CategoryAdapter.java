@@ -1,5 +1,6 @@
 package com.microservice.stock.adapters.driven.jpa.mysql.adapter;
 
+import com.microservice.stock.adapters.driven.jpa.mysql.entity.CategoryEntity;
 import com.microservice.stock.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.microservice.stock.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.microservice.stock.domain.model.Category;
@@ -14,8 +15,10 @@ public class CategoryAdapter implements ICategoryPersistencePort {
 
     @Override
     public Category addCategory(Category category) {
-        categoryRepository.save(categoryEntityMapper.toEntity(category));
-        return category;
+
+        CategoryEntity savedEntity = categoryRepository.save(categoryEntityMapper.toEntity(category));
+
+        return categoryEntityMapper.toModel(savedEntity);
     }
 
     @Override
