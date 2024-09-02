@@ -7,6 +7,8 @@ import com.microservice.stock.adapters.driving.http.mapper.request.ICategoryRequ
 import com.microservice.stock.adapters.driving.http.mapper.response.ICategoryResponseMapper;
 import com.microservice.stock.domain.api.ICategoryServicePort;
 import com.microservice.stock.domain.model.Category;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,10 @@ public class CategoryRestControllerAdapter {
     private final ICategoryServicePort categoryServicePort;
     private final ICategoryRequestMapper categoryRequestMapper;
     private final ICategoryResponseMapper categoryResponseMapper;
+
+    @Operation(summary = "Add a new category")
+    @ApiResponse(responseCode = "201", description = "Category created successfully")
+    @ApiResponse(responseCode = "400", description = "Wrong category information")
 
     @PostMapping("/")
     public ResponseEntity<CategoryResponse> addCategory(@RequestBody AddCategoryRequest request) {
