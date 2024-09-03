@@ -7,6 +7,9 @@ import com.microservice.stock.domain.model.Category;
 import com.microservice.stock.domain.spi.ICategoryPersistencePort;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 public class CategoryAdapter implements ICategoryPersistencePort {
 
@@ -19,6 +22,15 @@ public class CategoryAdapter implements ICategoryPersistencePort {
         CategoryEntity savedEntity = categoryRepository.save(categoryEntityMapper.toEntity(category));
 
         return categoryEntityMapper.toModel(savedEntity);
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        List<CategoryEntity> categories = categoryRepository.findAll();
+        if (categories.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return categoryEntityMapper.toModelList(categories);
     }
 
     @Override

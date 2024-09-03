@@ -12,10 +12,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -29,11 +28,15 @@ public class CategoryRestControllerAdapter {
     @Operation(summary = "Add a new category")
     @ApiResponse(responseCode = "201", description = "Category created successfully")
     @ApiResponse(responseCode = "400", description = "Wrong category information")
-
     @PostMapping("/")
     public ResponseEntity<CategoryResponse> addCategory(@RequestBody AddCategoryRequest request) {
         Category createdCategory = categoryServicePort.addCategory(categoryRequestMapper.addRequestToCategory(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseMapper.toCategoryResponse(createdCategory));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
+        return ResponseEntity.ok(categoryResponseMapper.toCategoryResponsesList(categoryServicePort.getAllCategories()));
     }
 
 }

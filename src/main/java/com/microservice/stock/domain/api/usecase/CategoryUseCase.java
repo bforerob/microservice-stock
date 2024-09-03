@@ -8,6 +8,8 @@ import com.microservice.stock.domain.model.Category;
 import com.microservice.stock.domain.spi.ICategoryPersistencePort;
 import com.microservice.stock.domain.util.DomainConstants;
 
+import java.util.List;
+
 public class CategoryUseCase implements ICategoryServicePort {
 
     private final ICategoryPersistencePort categoryPersistencePort;
@@ -38,6 +40,11 @@ public class CategoryUseCase implements ICategoryServicePort {
 
         return categoryPersistencePort.addCategory(category);
 
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return categoryPersistencePort.getAllCategories();
     }
 
 }
