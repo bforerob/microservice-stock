@@ -7,6 +7,7 @@ import com.microservice.stock.adapters.driving.http.mapper.request.ICategoryRequ
 import com.microservice.stock.adapters.driving.http.mapper.response.ICategoryResponseMapper;
 import com.microservice.stock.domain.api.ICategoryServicePort;
 import com.microservice.stock.domain.model.Category;
+import com.microservice.stock.domain.model.CustomPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +36,15 @@ public class CategoryRestControllerAdapter {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CategoryResponse>> getAllCategories() {
-        return ResponseEntity.ok(categoryResponseMapper.toCategoryResponsesList(categoryServicePort.getAllCategories()));
+    public ResponseEntity<CustomPage<CategoryResponse>> getAllCategories(
+            @RequestParam Integer pageNumber, @RequestParam Integer pageSize,
+            @RequestParam String sortBy, @RequestParam String sortDirection) {
+
+        CustomPage<Category> categoryCustomPage = categoryServicePort.getAllCategories(pageNumber, pageSize, sortBy, sortDirection);
+        List<CategoryResponse> categoryResponses = categoryResponseMapper.toCategoryResponsesList(categoryCustomPage.getContent());
+
+        return ResponseEntity.ok(new CustomPage<>(categoryResponses, categoryCustomPage.getPageNumber(),
+                categoryCustomPage.getPageSize(), categoryCustomPage.getTotalElements(), categoryCustomPage.getTotalPages()));
     }
 
 }

@@ -5,10 +5,9 @@ import com.microservice.stock.domain.exception.AlreadyExistsException;
 import com.microservice.stock.domain.exception.EmptyFieldException;
 import com.microservice.stock.domain.exception.LengthFieldException;
 import com.microservice.stock.domain.model.Category;
+import com.microservice.stock.domain.model.CustomPage;
 import com.microservice.stock.domain.spi.ICategoryPersistencePort;
 import com.microservice.stock.domain.util.DomainConstants;
-
-import java.util.List;
 
 public class CategoryUseCase implements ICategoryServicePort {
 
@@ -43,8 +42,8 @@ public class CategoryUseCase implements ICategoryServicePort {
     }
 
     @Override
-    public List<Category> getAllCategories() {
-        return categoryPersistencePort.getAllCategories();
+    public CustomPage<Category> getAllCategories(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
+        return categoryPersistencePort.getAllCategories(pageNumber, pageSize, sortBy, sortDirection);
     }
 
 }
