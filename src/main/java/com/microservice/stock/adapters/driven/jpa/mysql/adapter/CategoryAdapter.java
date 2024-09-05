@@ -1,6 +1,8 @@
 package com.microservice.stock.adapters.driven.jpa.mysql.adapter;
 
 import com.microservice.stock.adapters.driven.jpa.mysql.entity.CategoryEntity;
+import com.microservice.stock.adapters.driven.jpa.mysql.exception.InvalidPageNumberException;
+import com.microservice.stock.adapters.driven.jpa.mysql.exception.InvalidPageSizeException;
 import com.microservice.stock.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.microservice.stock.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.microservice.stock.domain.model.Category;
@@ -28,11 +30,26 @@ public class CategoryAdapter implements ICategoryPersistencePort {
     }
 
     @Override
-    public CustomPage<Category> getAllCategories(Integer pageSize, Integer pageNumber, String sortBy, String sortDirection) {
-        PageRequest pageRequest = PageRequest.of(pageSize, pageNumber, Sort.Direction.fromString(sortDirection), sortBy);
+    public CustomPage<Category> getAllCategories(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
+
+        if (pageNumber<0) {
+            throw new InvalidPageNumberException(pageNumber.toString());
+        }
+
+        if (pageSize<=0) {
+            throw new InvalidPageSizeException(pageSize.toString());
+        }
+
+
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
         Page<CategoryEntity> page = categoryRepository.findAll(pageRequest);
+
+        if (pageNumber >= page.getTotalPages()) {
+            throw new InvalidPageNumberException(pageNumber.toString());
+        }
+
         List<Category> categories= categoryEntityMapper.toModelList(page);
-        return new CustomPage<>(categories, pageSize, pageNumber, page.getTotalElements(), page.getTotalPages());
+        return new CustomPage<>(categories, pageNumber, pageSize, page.getTotalElements(), page.getTotalPages());
     }
 
     @Override

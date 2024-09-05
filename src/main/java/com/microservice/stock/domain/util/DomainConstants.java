@@ -14,5 +14,9 @@ public class DomainConstants {
 
     public static final Integer MAX_CHARACTERS_CATEGORY_NAME = 50;
     public static final Integer MAX_CHARACTERS_CATEGORY_DESCRIPTION = 90;
+    public static final String ASCENDENT_SORT_DIRECTION = "asc";
+    public static final String DESCENDENT_SORT_DIRECTION = "desc";
+    public static final String GET_ALL_CATEGORIES_SORT_PARAMETER = "name";
+
 
 }
