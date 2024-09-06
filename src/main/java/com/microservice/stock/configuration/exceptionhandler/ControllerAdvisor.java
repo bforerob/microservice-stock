@@ -1,7 +1,7 @@
 package com.microservice.stock.configuration.exceptionhandler;
 
-import com.microservice.stock.adapters.driven.jpa.mysql.exception.InvalidPageNumberException;
-import com.microservice.stock.adapters.driven.jpa.mysql.exception.InvalidPageSizeException;
+import com.microservice.stock.adapters.driven.jpa.mysql.exception.NegativePageNumberException;
+import com.microservice.stock.adapters.driven.jpa.mysql.exception.NegativePageSizeException;
 import com.microservice.stock.domain.exception.*;
 import com.microservice.stock.configuration.Constants;
 import lombok.RequiredArgsConstructor;
@@ -40,14 +40,14 @@ public class ControllerAdvisor {
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<ExceptionResponse> handleSupplierAlreadyExistsException(AlreadyExistsException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
-                String.format(Constants.ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
+                Constants.ALREADY_EXISTS_EXCEPTION_MESSAGE,
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
-    @ExceptionHandler(InvalidPageNumberException.class)
-    public ResponseEntity<ExceptionResponse> handleInvalidPageNumberException(InvalidPageNumberException exception) {
+    @ExceptionHandler(NegativePageNumberException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidPageNumberException(NegativePageNumberException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
-                String.format(Constants.INVALID_PAGE_NUMBER_EXCEPTION_MESSAGE, exception.getMessage()),
+                Constants.NEGATIVE_PAGE_NUMBER_EXCEPTION_MESSAGE,
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
@@ -65,10 +65,10 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
-    @ExceptionHandler(InvalidPageSizeException.class)
-    public ResponseEntity<ExceptionResponse> handleInvalidPageSizeException(InvalidPageSizeException exception) {
+    @ExceptionHandler(NegativePageSizeException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidPageSizeException(NegativePageSizeException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
-                String.format(Constants.INVALID_PAGE_SIZE_EXCEPTION_MESSAGE, exception.getMessage()),
+                String.format(Constants.NEGATIVE_PAGE_SIZE_EXCEPTION_MESSAGE, exception.getMessage()),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
