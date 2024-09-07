@@ -6,7 +6,7 @@ import com.microservice.stock.adapters.driven.jpa.mysql.exception.NegativePageSi
 import com.microservice.stock.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.microservice.stock.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.microservice.stock.domain.model.Category;
-import com.microservice.stock.domain.model.CustomPage;
+import com.microservice.stock.domain.util.CustomPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
