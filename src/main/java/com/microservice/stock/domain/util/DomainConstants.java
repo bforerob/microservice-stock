@@ -8,6 +8,7 @@ public class DomainConstants {
 
     public enum Field{
         CATEGORY,
+        BRAND,
         NAME,
         DESCRIPTION
     }
