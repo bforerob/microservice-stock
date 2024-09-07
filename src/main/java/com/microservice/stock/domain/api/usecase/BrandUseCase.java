@@ -24,7 +24,7 @@ public class BrandUseCase implements IBrandServicePort {
             throw new LengthFieldException(DomainConstants.Field.NAME.toString());
         }
         if(Boolean.TRUE.equals(brandPersistencePort.existsByName(brand.getName()))) {
-            throw new AlreadyExistsException(DomainConstants.Field.CATEGORY.toString());
+            throw new AlreadyExistsException(DomainConstants.Field.BRAND.toString());
         }
 
         if (brand.getDescription().trim().isEmpty()) {
