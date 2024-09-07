@@ -40,7 +40,7 @@ public class ControllerAdvisor {
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<ExceptionResponse> handleSupplierAlreadyExistsException(AlreadyExistsException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
-                Constants.ALREADY_EXISTS_EXCEPTION_MESSAGE,
+                String.format(Constants.ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
