@@ -34,7 +34,7 @@ public class CategoryRestControllerAdapter {
         Category createdCategory = categoryServicePort.addCategory(categoryRequestMapper.addRequestToCategory(request));
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseMapper.toCategoryResponse(createdCategory));
     }
-
+    
     @GetMapping("/")
     public ResponseEntity<CustomPage<CategoryResponse>> getAllCategories(
             @RequestParam Integer pageNumber, @RequestParam Integer pageSize,

@@ -35,11 +35,9 @@ public class CategoryAdapter implements ICategoryPersistencePort {
         if (pageNumber<0) {
             throw new NegativePageNumberException();
         }
-
         if (pageSize<=0) {
             throw new NegativePageSizeException();
         }
-
 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
         Page<CategoryEntity> page = categoryRepository.findAll(pageRequest);
