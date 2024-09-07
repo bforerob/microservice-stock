@@ -35,6 +35,9 @@ public class CategoryRestControllerAdapter {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseMapper.toCategoryResponse(createdCategory));
     }
     
+    @Operation(summary = "Get all categories paginated and sorted by name")
+    @ApiResponse(responseCode = "200", description = "Categories obtained successfully")
+    @ApiResponse(responseCode = "400", description = "Wrong parameters")
     @GetMapping("/")
     public ResponseEntity<CustomPage<CategoryResponse>> getAllCategories(
             @RequestParam Integer pageNumber, @RequestParam Integer pageSize,
