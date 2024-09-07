@@ -1,7 +1,7 @@
 package com.microservice.stock.domain.spi;
 
 import com.microservice.stock.domain.model.Category;
-import com.microservice.stock.domain.model.CustomPage;
+import com.microservice.stock.domain.util.CustomPage;
 
 public interface ICategoryPersistencePort {
 

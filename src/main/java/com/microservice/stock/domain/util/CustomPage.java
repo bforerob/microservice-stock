@@ -1,4 +1,4 @@
-package com.microservice.stock.domain.model;
+package com.microservice.stock.domain.util;
 
 import java.util.List;
 

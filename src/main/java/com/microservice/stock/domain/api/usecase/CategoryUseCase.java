@@ -3,7 +3,7 @@ package com.microservice.stock.domain.api.usecase;
 import com.microservice.stock.domain.exception.*;
 import com.microservice.stock.domain.api.ICategoryServicePort;
 import com.microservice.stock.domain.model.Category;
-import com.microservice.stock.domain.model.CustomPage;
+import com.microservice.stock.domain.util.CustomPage;
 import com.microservice.stock.domain.spi.ICategoryPersistencePort;
 import com.microservice.stock.domain.util.DomainConstants;
 

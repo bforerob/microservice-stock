@@ -7,7 +7,7 @@ import com.microservice.stock.adapters.driving.http.mapper.request.ICategoryRequ
 import com.microservice.stock.adapters.driving.http.mapper.response.ICategoryResponseMapper;
 import com.microservice.stock.domain.api.ICategoryServicePort;
 import com.microservice.stock.domain.model.Category;
-import com.microservice.stock.domain.model.CustomPage;
+import com.microservice.stock.domain.util.CustomPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;

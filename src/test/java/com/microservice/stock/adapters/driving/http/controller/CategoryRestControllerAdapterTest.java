@@ -6,7 +6,7 @@ import com.microservice.stock.adapters.driving.http.mapper.request.ICategoryRequ
 import com.microservice.stock.adapters.driving.http.mapper.response.ICategoryResponseMapper;
 import com.microservice.stock.domain.api.ICategoryServicePort;
 import com.microservice.stock.domain.model.Category;
-import com.microservice.stock.domain.model.CustomPage;
+import com.microservice.stock.domain.util.CustomPage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
