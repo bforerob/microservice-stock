@@ -6,7 +6,7 @@ import com.microservice.stock.adapters.driven.jpa.mysql.exception.NegativePageSi
 import com.microservice.stock.adapters.driven.jpa.mysql.mapper.ICategoryEntityMapper;
 import com.microservice.stock.adapters.driven.jpa.mysql.repository.ICategoryRepository;
 import com.microservice.stock.domain.model.Category;
-import com.microservice.stock.domain.model.CustomPage;
+import com.microservice.stock.domain.util.CustomPage;
 import com.microservice.stock.domain.spi.ICategoryPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
