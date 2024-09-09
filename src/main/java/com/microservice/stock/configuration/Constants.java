@@ -1,5 +1,7 @@
 package com.microservice.stock.configuration;
 
+import com.microservice.stock.domain.util.DomainConstants;
+
 public class Constants {
 
     private Constants() { throw new IllegalStateException("Utility class"); }
@@ -12,7 +14,8 @@ public class Constants {
     public static final String NEGATIVE_PAGE_SIZE_EXCEPTION_MESSAGE = "Page size cannot be negative..";
     public static final String INVALID_SORT_DIRECTION_EXCEPTION_MESSAGE = "%s is not a valid sort direction.";
     public static final String INVALID_SORT_PARAMETER_EXCEPTION_MESSAGE = "%s is not a valid sort parameter.";
-    public static final String ARTICLE_CATEGORIES_NUMBER_EXCEPTION = "An article cannot have less than %s categories and more than %s.";
-
-
+    public static final String ARTICLE_CATEGORIES_NUMBER_EXCEPTION = "An article cannot have less than "+ DomainConstants.MIN_ARTICLE_CATEGORIES_NUMBER + " categories and more than " + DomainConstants.MAX_ARTICLE_CATEGORIES_NUMBER + " categories.";
+    public static final String DUPLICATED_ARTICLE_CATEGORIES_EXCEPTION = "An article cannot have duplicated categories.";
+    public static final String CATEGORY_NOT_FOUND_EXCEPTION = "This categories does not exist: %s";
+    public static final String NEGATIVE_FIELD_EXCEPTION = "%s cannot be negative.";
 }
