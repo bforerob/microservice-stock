@@ -17,6 +17,7 @@ public class Article {
     private final BigDecimal price;
 
 
+
     public Article(Long id, List<Category> categories, String name, String description, Long quantity, BigDecimal price) {
         this.id = id;
         this.categories = categories;
@@ -33,6 +34,7 @@ public class Article {
             throw new NullFieldException(DomainConstants.Field.PRICE.toString());
         });
     }
+
 
     public Long getId() {
         return id;

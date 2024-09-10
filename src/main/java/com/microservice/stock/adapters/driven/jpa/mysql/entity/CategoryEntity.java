@@ -26,4 +26,10 @@ public class CategoryEntity {
     @ManyToMany(mappedBy = "categories")
     private List<ArticleEntity> articles = new ArrayList<>();
 
+
+    public CategoryEntity(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 }

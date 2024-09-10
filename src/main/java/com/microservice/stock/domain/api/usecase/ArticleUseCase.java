@@ -11,11 +11,9 @@ import com.microservice.stock.domain.util.DomainConstants;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.microservice.stock.domain.util.DomainConstants.MAX_ARTICLE_CATEGORIES_NUMBER;
 import static com.microservice.stock.domain.util.DomainConstants.MIN_ARTICLE_CATEGORIES_NUMBER;
-import static java.util.stream.Collectors.toList;
 
 public class ArticleUseCase implements IArticleServicePort {
 
