@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface IBrandResponseMapper {
 
-    BrandResponse toBrandResponse(Brand brand);
-    List<BrandResponse> toBrandResponsesList(List<Brand> brands);
+    BrandResponse brandToBrandResponse(Brand brand);
+    List<BrandResponse> brandListToBrandResponsesList(List<Brand> brands);
 
 }

@@ -32,8 +32,8 @@ public class BrandRestControllerAdapter {
     @ApiResponse(responseCode = "400", description = "Wrong brand information")
     @PostMapping("/")
     public ResponseEntity<BrandResponse> addBrand(@RequestBody AddBrandRequest request) {
-        Brand createdBrand = brandServicePort.addBrand(brandRequestMapper.addRequestToBrand(request));
-        return ResponseEntity.status(HttpStatus.CREATED).body(brandResponseMapper.toBrandResponse(createdBrand));
+        Brand createdBrand = brandServicePort.addBrand(brandRequestMapper.addBrandRequestToBrand(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(brandResponseMapper.brandToBrandResponse(createdBrand));
     }
 
     @Operation(summary = "Get all brands paginated and sorted by name")
@@ -45,7 +45,7 @@ public class BrandRestControllerAdapter {
             @RequestParam String sortBy, @RequestParam String sortDirection) {
 
         CustomPage<Brand> brandCustomPage = brandServicePort.getAllBrands(pageNumber, pageSize, sortBy, sortDirection);
-        List<BrandResponse> brandResponses = brandResponseMapper.toBrandResponsesList(brandCustomPage.getContent());
+        List<BrandResponse> brandResponses = brandResponseMapper.brandListToBrandResponsesList(brandCustomPage.getContent());
 
         return ResponseEntity.ok(new CustomPage<>(brandResponses, brandCustomPage.getPageNumber(),
                 brandCustomPage.getPageSize(), brandCustomPage.getTotalElements(), brandCustomPage.getTotalPages()));

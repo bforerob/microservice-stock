@@ -25,8 +25,8 @@ public class BrandAdapter implements IBrandPersistencePort {
 
     @Override
     public Brand addBrand(Brand brand) {
-        BrandEntity savedEntity = brandRepository.save(brandEntityMapper.toEntity(brand));
-        return brandEntityMapper.toModel(savedEntity);
+        BrandEntity savedEntity = brandRepository.save(brandEntityMapper.brandToBrandEntity(brand));
+        return brandEntityMapper.brandEntityToBrand(savedEntity);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class BrandAdapter implements IBrandPersistencePort {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
         Page<BrandEntity> page = brandRepository.findAll(pageRequest);
 
-        List<Brand> brands= brandEntityMapper.toModelList(page);
+        List<Brand> brands= brandEntityMapper.brandEntityPageToBrandList(page);
         return new CustomPage<>(brands, pageNumber, pageSize, page.getTotalElements(), page.getTotalPages());
     }
 

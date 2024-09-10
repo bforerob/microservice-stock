@@ -42,9 +42,9 @@ class BrandAdapterTest {
         Brand brand = new Brand(1L, "Electronics", "Electronic items");
         BrandEntity brandEntity = new BrandEntity(1L, "Electronics", "Electronic items");
 
-        when(brandEntityMapper.toEntity(brand)).thenReturn(brandEntity);
+        when(brandEntityMapper.brandToBrandEntity(brand)).thenReturn(brandEntity);
         when(brandRepository.save(brandEntity)).thenReturn(brandEntity);
-        when(brandEntityMapper.toModel(brandEntity)).thenReturn(brand);
+        when(brandEntityMapper.brandEntityToBrand(brandEntity)).thenReturn(brand);
 
         Brand result = brandAdapter.addBrand(brand);
 
@@ -62,11 +62,11 @@ class BrandAdapterTest {
         String sortDirection = "ASC";
 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
-        Page<BrandEntity> mockPage = new PageImpl<>(List.of(new BrandEntity()));  // Esto es un mock de Spring Data
+        Page<BrandEntity> mockPage = new PageImpl<>(List.of(new BrandEntity()));
         List<Brand> brands = List.of(new Brand(1L, "name", "description"));
 
         when(brandRepository.findAll(pageRequest)).thenReturn(mockPage);
-        when(brandEntityMapper.toModelList(mockPage)).thenReturn(brands);
+        when(brandEntityMapper.brandEntityPageToBrandList(mockPage)).thenReturn(brands);
 
         CustomPage<Brand> result = brandAdapter.getAllBrands(pageNumber, pageSize, sortBy, sortDirection);
 
@@ -77,7 +77,7 @@ class BrandAdapterTest {
         assertEquals(mockPage.getTotalPages(), result.getTotalPages(), "Total page number is not the expected");
 
         verify(brandRepository).findAll(pageRequest);
-        verify(brandEntityMapper).toModelList(mockPage);
+        verify(brandEntityMapper).brandEntityPageToBrandList(mockPage);
     }
 
     @Test
