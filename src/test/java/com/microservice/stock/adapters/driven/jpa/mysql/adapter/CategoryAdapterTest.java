@@ -24,6 +24,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class CategoryAdapterTest {
 
@@ -41,9 +42,9 @@ class CategoryAdapterTest {
         Category category = new Category(1L, "Electronics", "Electronic items");
         CategoryEntity categoryEntity = new CategoryEntity(1L, "Electronics", "Electronic items");
 
-        when(categoryEntityMapper.toEntity(category)).thenReturn(categoryEntity);
+        when(categoryEntityMapper.categoryToCategoryEntity(category)).thenReturn(categoryEntity);
         when(categoryRepository.save(categoryEntity)).thenReturn(categoryEntity);
-        when(categoryEntityMapper.toModel(categoryEntity)).thenReturn(category);
+        when(categoryEntityMapper.categoryEntityToCategory(categoryEntity)).thenReturn(category);
 
         Category result = categoryAdapter.addCategory(category);
 
@@ -63,12 +64,12 @@ class CategoryAdapterTest {
         String sortDirection = "ASC";
 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
-        Page<CategoryEntity> mockPage = new PageImpl<>(List.of(new CategoryEntity()));  // Esto es un mock de Spring Data
+        Page<CategoryEntity> mockPage = new PageImpl<>(List.of(new CategoryEntity()));
         List<Category> categories = List.of(new Category(1L, "name", "description"));
 
 
         when(categoryRepository.findAll(pageRequest)).thenReturn(mockPage);
-        when(categoryEntityMapper.toModelList(mockPage)).thenReturn(categories);
+        when(categoryEntityMapper.categoryEntityPageToModelList(mockPage)).thenReturn(categories);
 
         CustomPage<Category> result = categoryAdapter.getAllCategories(pageNumber, pageSize, sortBy, sortDirection);
 
@@ -80,7 +81,7 @@ class CategoryAdapterTest {
         assertEquals(mockPage.getTotalPages(), result.getTotalPages(), "Total page number is not the expected");
 
         verify(categoryRepository).findAll(pageRequest);
-        verify(categoryEntityMapper).toModelList(mockPage);
+        verify(categoryEntityMapper).categoryEntityPageToModelList(mockPage);
     }
 
     @Test

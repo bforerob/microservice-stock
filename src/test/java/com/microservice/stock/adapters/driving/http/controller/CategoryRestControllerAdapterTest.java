@@ -48,9 +48,9 @@ class CategoryRestControllerAdapterTest {
         CategoryResponse categoryResponse = new CategoryResponse(1L, "Category Name", "Category Description");
 
 
-        when(categoryRequestMapper.addRequestToCategory(any(AddCategoryRequest.class))).thenReturn(category);
+        when(categoryRequestMapper.addCategoryRequestToCategory(any(AddCategoryRequest.class))).thenReturn(category);
         when(categoryServicePort.addCategory(any(Category.class))).thenReturn(category);
-        when(categoryResponseMapper.toCategoryResponse(any(Category.class))).thenReturn(categoryResponse);
+        when(categoryResponseMapper.categoryToCategoryResponse(any(Category.class))).thenReturn(categoryResponse);
 
         mockMvc.perform(post("/category/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ class CategoryRestControllerAdapterTest {
                 .andExpect(jsonPath("$.description").value("Category Description"));
 
         verify(categoryServicePort).addCategory(any(Category.class));
-        verify(categoryResponseMapper).toCategoryResponse(any(Category.class));
+        verify(categoryResponseMapper).categoryToCategoryResponse(any(Category.class));
     }
 
     @Test
@@ -80,7 +80,7 @@ class CategoryRestControllerAdapterTest {
 
         when(categoryServicePort.getAllCategories(anyInt(), anyInt(), anyString(), anyString()))
                 .thenReturn(categoryCustomPage);
-        when(categoryResponseMapper.toCategoryResponsesList(anyList())).thenReturn(categoryResponses);
+        when(categoryResponseMapper.categoryListToCategoryResponsesList(anyList())).thenReturn(categoryResponses);
 
         mockMvc.perform(get("/category/")
                         .param("pageNumber", "0")
@@ -98,7 +98,7 @@ class CategoryRestControllerAdapterTest {
                 .andExpect(jsonPath("$.totalPages").value(1));
 
         verify(categoryServicePort).getAllCategories(anyInt(), anyInt(), anyString(), anyString());
-        verify(categoryResponseMapper).toCategoryResponsesList(anyList());
+        verify(categoryResponseMapper).categoryListToCategoryResponsesList(anyList());
     }
 
 

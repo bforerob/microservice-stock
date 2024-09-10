@@ -31,8 +31,8 @@ public class CategoryRestControllerAdapter {
     @ApiResponse(responseCode = "400", description = "Wrong category information")
     @PostMapping("/")
     public ResponseEntity<CategoryResponse> addCategory(@RequestBody AddCategoryRequest request) {
-        Category createdCategory = categoryServicePort.addCategory(categoryRequestMapper.addRequestToCategory(request));
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseMapper.toCategoryResponse(createdCategory));
+        Category createdCategory = categoryServicePort.addCategory(categoryRequestMapper.addCategoryRequestToCategory(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseMapper.categoryToCategoryResponse(createdCategory));
     }
     
     @Operation(summary = "Get all categories paginated and sorted by name")
@@ -44,7 +44,7 @@ public class CategoryRestControllerAdapter {
             @RequestParam String sortBy, @RequestParam String sortDirection) {
 
         CustomPage<Category> categoryCustomPage = categoryServicePort.getAllCategories(pageNumber, pageSize, sortBy, sortDirection);
-        List<CategoryResponse> categoryResponses = categoryResponseMapper.toCategoryResponsesList(categoryCustomPage.getContent());
+        List<CategoryResponse> categoryResponses = categoryResponseMapper.categoryListToCategoryResponsesList(categoryCustomPage.getContent());
 
         return ResponseEntity.ok(new CustomPage<>(categoryResponses, categoryCustomPage.getPageNumber(),
                 categoryCustomPage.getPageSize(), categoryCustomPage.getTotalElements(), categoryCustomPage.getTotalPages()));

@@ -49,9 +49,9 @@ class BrandRestControllerAdapterTest {
         BrandResponse brandResponse = new BrandResponse(1L, "Brand Name", "Brand Description");
 
 
-        when(brandRequestMapper.addRequestToBrand(any(AddBrandRequest.class))).thenReturn(brand);
+        when(brandRequestMapper.addBrandRequestToBrand(any(AddBrandRequest.class))).thenReturn(brand);
         when(brandServicePort.addBrand(any(Brand.class))).thenReturn(brand);
-        when(brandResponseMapper.toBrandResponse(any(Brand.class))).thenReturn(brandResponse);
+        when(brandResponseMapper.brandToBrandResponse(any(Brand.class))).thenReturn(brandResponse);
 
         mockMvc.perform(post("/brand/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -62,7 +62,7 @@ class BrandRestControllerAdapterTest {
                 .andExpect(jsonPath("$.description").value("Brand Description"));
 
         verify(brandServicePort).addBrand(any(Brand.class));
-        verify(brandResponseMapper).toBrandResponse(any(Brand.class));
+        verify(brandResponseMapper).brandToBrandResponse(any(Brand.class));
     }
 
     @Test
@@ -81,7 +81,7 @@ class BrandRestControllerAdapterTest {
 
         when(brandServicePort.getAllBrands(anyInt(), anyInt(), anyString(), anyString()))
                 .thenReturn(brandCustomPage);
-        when(brandResponseMapper.toBrandResponsesList(anyList())).thenReturn(brandResponses);
+        when(brandResponseMapper.brandListToBrandResponsesList(anyList())).thenReturn(brandResponses);
 
         mockMvc.perform(get("/brand/")
                         .param("pageNumber", "0")
@@ -99,7 +99,7 @@ class BrandRestControllerAdapterTest {
                 .andExpect(jsonPath("$.totalPages").value(1));
 
         verify(brandServicePort).getAllBrands(anyInt(), anyInt(), anyString(), anyString());
-        verify(brandResponseMapper).toBrandResponsesList(anyList());
+        verify(brandResponseMapper).brandListToBrandResponsesList(anyList());
     }
 
 

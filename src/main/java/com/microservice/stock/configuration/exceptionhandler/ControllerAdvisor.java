@@ -68,7 +68,35 @@ public class ControllerAdvisor {
     @ExceptionHandler(NegativePageSizeException.class)
     public ResponseEntity<ExceptionResponse> handleInvalidPageSizeException(NegativePageSizeException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
-                String.format(Constants.NEGATIVE_PAGE_SIZE_EXCEPTION_MESSAGE, exception.getMessage()),
+                Constants.NEGATIVE_PAGE_SIZE_EXCEPTION_MESSAGE,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(ArticleCategoriesNumberException.class)
+    public ResponseEntity<ExceptionResponse> handleArticleCategoriesNumberException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                Constants.ARTICLE_CATEGORIES_NUMBER_EXCEPTION,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(DuplicatedArticleCategoriesException.class)
+    public ResponseEntity<ExceptionResponse> handleDuplicatedArticleCategoriesException() {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                Constants.DUPLICATED_ARTICLE_CATEGORIES_EXCEPTION,
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleCategoryNotFoundException(CategoryNotFoundException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.CATEGORY_NOT_FOUND_EXCEPTION, exception.getMessage()),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(NegativeFieldException.class)
+    public ResponseEntity<ExceptionResponse> handleNegativeFieldException(NegativeFieldException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.NEGATIVE_FIELD_EXCEPTION, exception.getMessage()),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 

@@ -9,6 +9,6 @@ import org.mapstruct.Mapping;
 public interface ICategoryRequestMapper {
 
     @Mapping(target = "id", ignore = true)
-    Category addRequestToCategory(AddCategoryRequest addCategoryRequest);
+    Category addCategoryRequestToCategory(AddCategoryRequest addCategoryRequest);
 
 }

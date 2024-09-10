@@ -24,9 +24,9 @@ public class CategoryAdapter implements ICategoryPersistencePort {
     @Override
     public Category addCategory(Category category) {
 
-        CategoryEntity savedEntity = categoryRepository.save(categoryEntityMapper.toEntity(category));
+        CategoryEntity savedEntity = categoryRepository.save(categoryEntityMapper.categoryToCategoryEntity(category));
 
-        return categoryEntityMapper.toModel(savedEntity);
+        return categoryEntityMapper.categoryEntityToCategory(savedEntity);
     }
 
     @Override
@@ -42,13 +42,20 @@ public class CategoryAdapter implements ICategoryPersistencePort {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
         Page<CategoryEntity> page = categoryRepository.findAll(pageRequest);
 
-        List<Category> categories= categoryEntityMapper.toModelList(page);
+        List<Category> categories= categoryEntityMapper.categoryEntityPageToModelList(page);
         return new CustomPage<>(categories, pageNumber, pageSize, page.getTotalElements(), page.getTotalPages());
     }
 
     @Override
     public Boolean existsByName(String name) {
         return categoryRepository.findByName(name).isPresent();
+    }
+
+    @Override
+    public List<Category> findCategoriesByNames(List<String> names) {
+        List<CategoryEntity> categoryEntities = categoryRepository.findByNameIn(names);
+
+        return categoryEntityMapper.categoryEntityListToCategoryList(categoryEntities);
     }
 
 }

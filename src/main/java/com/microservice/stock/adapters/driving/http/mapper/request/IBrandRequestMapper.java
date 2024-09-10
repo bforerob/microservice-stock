@@ -9,6 +9,6 @@ import org.mapstruct.Mapping;
 public interface IBrandRequestMapper {
 
     @Mapping(target = "id", ignore = true)
-    Brand addRequestToBrand(AddBrandRequest addBrandRequest);
+    Brand addBrandRequestToBrand(AddBrandRequest addBrandRequest);
 
 }
