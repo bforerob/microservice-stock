@@ -6,6 +6,8 @@ import com.microservice.stock.adapters.driving.http.mapper.request.IArticleReque
 import com.microservice.stock.adapters.driving.http.mapper.response.IArticleResponseMapper;
 import com.microservice.stock.domain.api.IArticleServicePort;
 import com.microservice.stock.domain.model.Article;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ public class ArticleRestControllerAdapter {
     private final IArticleRequestMapper articleRequestMapper;
     private final IArticleResponseMapper articleResponseMapper;
 
+    @Operation(summary = "Add a new article")
+    @ApiResponse(responseCode = "201", description = "Article created successfully")
+    @ApiResponse(responseCode = "400", description = "Wrong article information")
     @PostMapping("/")
     public ResponseEntity<ArticleResponse> createArticle(@RequestBody AddArticleRequest addArticleRequest) {
         Article article = articleRequestMapper.addArticleRequestToArticle(addArticleRequest);
