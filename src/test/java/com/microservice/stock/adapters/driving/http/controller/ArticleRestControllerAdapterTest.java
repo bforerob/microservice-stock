@@ -5,7 +5,6 @@ import com.microservice.stock.adapters.driving.http.dto.response.ArticleResponse
 import com.microservice.stock.adapters.driving.http.mapper.request.IArticleRequestMapper;
 import com.microservice.stock.adapters.driving.http.mapper.response.IArticleResponseMapper;
 import com.microservice.stock.domain.api.IArticleServicePort;
-import com.microservice.stock.domain.api.ICategoryServicePort;
 import com.microservice.stock.domain.model.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,12 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,15 +38,11 @@ class ArticleRestControllerAdapterTest {
     @MockBean
     private IArticleResponseMapper articleResponseMapper;
 
-    @MockBean
-    private ICategoryServicePort categoryServicePort;
-
 
     @Test
     @DisplayName("Given an article, should return created status and the created article")
     void When_ArticleIsCorrect_Expect_ReturnCreatedStatus() throws Exception {
 
-        // Arrange
         Article article = new Article(1L, new ArrayList<>(), "Laptop", "Description", 10L, new BigDecimal("1000.00"));
         ArticleResponse articleResponse = new ArticleResponse(1L,  new ArrayList<>(),"Laptop", "Description", 10L, new BigDecimal("1000.00"));
 
@@ -58,7 +50,6 @@ class ArticleRestControllerAdapterTest {
         when(articleServicePort.addArticle(any(Article.class), anyList())).thenReturn(article);
         when(articleResponseMapper.articleToArticleResponse(any(Article.class))).thenReturn(articleResponse);
 
-        // Act & Assert
         mockMvc.perform(post("/article/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"Laptop\",\"description\":\"Description\",\"quantity\":10,\"price\":1000.00,\"categories\":[\"Electronics\"]}"))
@@ -69,7 +60,6 @@ class ArticleRestControllerAdapterTest {
                 .andExpect(jsonPath("$.quantity").value(10L))
                 .andExpect(jsonPath("$.price").value(1000.00));
 
-        // Verificaciones adicionales
         verify(articleServicePort).addArticle(any(Article.class), anyList());
         verify(articleResponseMapper).articleToArticleResponse(any(Article.class));
     }

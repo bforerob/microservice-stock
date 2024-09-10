@@ -5,7 +5,6 @@ import com.microservice.stock.adapters.driven.jpa.mysql.mapper.IArticleEntityMap
 import com.microservice.stock.adapters.driven.jpa.mysql.repository.IArticleRepository;
 import com.microservice.stock.domain.model.Article;
 import com.microservice.stock.domain.spi.IArticlePersistencePort;
-import lombok.RequiredArgsConstructor;
 
 
 public class ArticleAdapter implements IArticlePersistencePort {
