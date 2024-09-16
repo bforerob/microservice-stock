@@ -14,6 +14,7 @@ public interface IArticleRequestMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "categories", ignore = true)
+    @Mapping(target = "brand", ignore = true)
     Article addArticleRequestToArticle(AddArticleRequest addArticleRequest);
 
 

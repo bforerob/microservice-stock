@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -50,5 +51,12 @@ public class BrandAdapter implements IBrandPersistencePort {
     public Boolean existsByName(String name) {
         return brandRepository.findByName(name).isPresent();
     }
+
+    @Override
+    public Optional<Brand> findByName(String name) {
+        return brandRepository.findByName(name)
+                .map(brandEntityMapper::brandEntityToBrand);
+    }
+
 
 }

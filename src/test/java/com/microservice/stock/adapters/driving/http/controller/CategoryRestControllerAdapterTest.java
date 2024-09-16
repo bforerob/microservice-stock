@@ -45,7 +45,7 @@ class CategoryRestControllerAdapterTest {
     void When_CategoryIsCorrect_Expect_ReturnCreatedStatus() throws Exception {
 
         Category category = new Category(1L, "Category Name", "Category Description");
-        CategoryResponse categoryResponse = new CategoryResponse(1L, "Category Name", "Category Description");
+        CategoryResponse categoryResponse = new CategoryResponse(1L, "Category Name");
 
 
         when(categoryRequestMapper.addCategoryRequestToCategory(any(AddCategoryRequest.class))).thenReturn(category);
@@ -57,8 +57,7 @@ class CategoryRestControllerAdapterTest {
                         .content("{\"name\":\"Category Name\",\"description\":\"Category Description\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1L))
-                .andExpect(jsonPath("$.name").value("Category Name"))
-                .andExpect(jsonPath("$.description").value("Category Description"));
+                .andExpect(jsonPath("$.name").value("Category Name"));
 
         verify(categoryServicePort).addCategory(any(Category.class));
         verify(categoryResponseMapper).categoryToCategoryResponse(any(Category.class));
@@ -74,8 +73,8 @@ class CategoryRestControllerAdapterTest {
 
         CustomPage<Category> categoryCustomPage = new CustomPage<>(categories, 0, 2, 2L, 1);
 
-        CategoryResponse categoryResponse1 = new CategoryResponse(1L, "Category A", "Description A");
-        CategoryResponse categoryResponse2 = new CategoryResponse(2L, "Category B", "Description B");
+        CategoryResponse categoryResponse1 = new CategoryResponse(1L, "Category A");
+        CategoryResponse categoryResponse2 = new CategoryResponse(2L, "Category B");
         List<CategoryResponse> categoryResponses = Arrays.asList(categoryResponse1, categoryResponse2);
 
         when(categoryServicePort.getAllCategories(anyInt(), anyInt(), anyString(), anyString()))

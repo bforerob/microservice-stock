@@ -24,6 +24,10 @@ public class ArticleEntity {
     private Long quantity;
     private BigDecimal price;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id", nullable = false)  // Defining the brand column in the table
+    private BrandEntity brand;
+
     @ManyToMany
     @JoinTable(name = "Article_Category",
             joinColumns = @JoinColumn(name = "article_id"),
