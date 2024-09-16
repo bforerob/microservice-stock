@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,7 @@ class BrandAdapterTest {
     void When_BrandIsCorrect_Expect_BrandSavedSuccessfully() {
 
         Brand brand = new Brand(1L, "Electronics", "Electronic items");
-        BrandEntity brandEntity = new BrandEntity(1L, "Electronics", "Electronic items");
+        BrandEntity brandEntity = new BrandEntity(1L, "Electronics", "Electronic items", new ArrayList<>());
 
         when(brandEntityMapper.brandToBrandEntity(brand)).thenReturn(brandEntity);
         when(brandRepository.save(brandEntity)).thenReturn(brandEntity);
@@ -54,7 +55,7 @@ class BrandAdapterTest {
 
     @Test
     @DisplayName("Given a valid request, should return a custom page with paginated brands")
-    void When_ValidRequest_Expect_ReturnCustomPage_Brand() {
+    void When_ValidRequest_Expect_ReturnCustomPageOfBrand() {
 
         Integer pageNumber = 1;
         Integer pageSize = 10;
@@ -112,7 +113,7 @@ class BrandAdapterTest {
     void When_BrandNameAlreadyExist_Expect_True() {
 
         String name = "Nike";
-        BrandEntity brandEntity = new BrandEntity(1L, "Nike", "Sports brand");
+        BrandEntity brandEntity = new BrandEntity(1L, "Nike", "Sports brand", new ArrayList<>());
 
         when(brandRepository.findByName(name)).thenReturn(Optional.of(brandEntity));
 
