@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "brand")
 @AllArgsConstructor
@@ -21,4 +23,12 @@ public class BrandEntity {
     private String name;
     private String description;
 
+    @OneToMany(mappedBy = "brand")
+    private List<ArticleEntity> articles;
+
+    public BrandEntity(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 }

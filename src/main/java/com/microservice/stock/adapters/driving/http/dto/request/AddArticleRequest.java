@@ -11,10 +11,11 @@ import java.util.List;
 public class AddArticleRequest {
 
     private String name;
-    private List<String> categories;
     private String description;
     private Long quantity;
     private BigDecimal price;
+    private String brand;
+    private List<String> categories;
 
     public void setCategories(List<String> categories) {
         this.categories = categories;
