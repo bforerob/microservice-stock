@@ -86,10 +86,10 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
-    @ExceptionHandler(CategoryNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> handleCategoryNotFoundException(CategoryNotFoundException exception) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleCategoryNotFoundException(NotFoundException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
-                String.format(Constants.CATEGORY_NOT_FOUND_EXCEPTION, exception.getMessage()),
+                String.format(Constants.NOT_FOUND_EXCEPTION, exception.getMessage()),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
