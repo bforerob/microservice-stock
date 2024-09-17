@@ -23,6 +23,20 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
+    @ExceptionHandler(EmptyCategoryNameException.class)
+    public ResponseEntity<ExceptionResponse> handleEmptyCategoryNameException(EmptyCategoryNameException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.EMPTY_FIELD_EXCEPTION_MESSAGE, exception.getMessage()),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(EmptyCategoryDescriptionException.class)
+    public ResponseEntity<ExceptionResponse> handleEmptyCategoryDescriptionException(EmptyCategoryDescriptionException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.EMPTY_FIELD_EXCEPTION_MESSAGE, exception.getMessage()),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
     @ExceptionHandler(NullFieldException.class)
     public ResponseEntity<ExceptionResponse> handleNullFieldException(NullFieldException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
@@ -37,8 +51,29 @@ public class ControllerAdvisor {
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
     }
 
+    @ExceptionHandler(LongCategoryNameException.class)
+    public ResponseEntity<ExceptionResponse> handLongCategoryNameException(LongCategoryNameException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.LENGTH_EXCEPTION_MESSAGE, exception.getMessage()),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(LongCategoryDescriptionException.class)
+    public ResponseEntity<ExceptionResponse> handLongCategoryDescriptionException(LongCategoryDescriptionException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.LENGTH_EXCEPTION_MESSAGE, exception.getMessage()),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<ExceptionResponse> handleSupplierAlreadyExistsException(AlreadyExistsException exception) {
+        return ResponseEntity.badRequest().body(new ExceptionResponse(
+                String.format(Constants.ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
+                HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(CategoryAlreadyExistsException.class)
+    public ResponseEntity<ExceptionResponse> handleCategoryAlreadyExistsException(CategoryAlreadyExistsException exception) {
         return ResponseEntity.badRequest().body(new ExceptionResponse(
                 String.format(Constants.ALREADY_EXISTS_EXCEPTION_MESSAGE, exception.getMessage()),
                 HttpStatus.BAD_REQUEST.toString(), LocalDateTime.now()));
