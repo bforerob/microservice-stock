@@ -53,4 +53,11 @@ public class ArticleRestControllerAdapter {
                 articlesCustomPage.getPageSize(), articlesCustomPage.getTotalElements(), articlesCustomPage.getTotalPages()));
 
     }
+
+    @PostMapping("/increment")
+        public ResponseEntity<String> incrementStock(@RequestParam Long articleId, @RequestParam Integer amount) {
+        articleServicePort.updateStock(articleId, amount);
+        return ResponseEntity.ok("Stock updated successfully");
+    }
+
 }
