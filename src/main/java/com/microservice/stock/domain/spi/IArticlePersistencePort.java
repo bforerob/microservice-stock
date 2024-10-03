@@ -8,4 +8,5 @@ public interface IArticlePersistencePort {
     Article addArticle(Article article);
     CustomPage<Article> getArticles(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection, String brandName, String categoryName);
 
+    void updateStock(Long articleId, Integer amount);
 }

@@ -84,4 +84,9 @@ public class ArticleUseCase implements IArticleServicePort {
 
         return articlePersistencePort.getArticles(pageNumber, pageSize, sortBy, sortDirection, brandName, categoryName);
     }
+
+    @Override
+    public void updateStock(Long articleId, Integer amount) {
+        articlePersistencePort.updateStock(articleId, amount);
+    }
 }

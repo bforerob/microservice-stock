@@ -1,8 +1,8 @@
 package com.microservice.stock.adapters.driving.http.controller;
 
 import com.microservice.stock.adapters.driving.http.dto.request.AddArticleRequest;
+import com.microservice.stock.adapters.driving.http.dto.request.IncrementStockRequest;
 import com.microservice.stock.adapters.driving.http.dto.response.ArticleResponse;
-import com.microservice.stock.adapters.driving.http.dto.response.CategoryResponse;
 import com.microservice.stock.adapters.driving.http.mapper.request.IArticleRequestMapper;
 import com.microservice.stock.adapters.driving.http.mapper.response.IArticleResponseMapper;
 import com.microservice.stock.domain.api.IArticleServicePort;
@@ -53,4 +53,11 @@ public class ArticleRestControllerAdapter {
                 articlesCustomPage.getPageSize(), articlesCustomPage.getTotalElements(), articlesCustomPage.getTotalPages()));
 
     }
+
+    @PostMapping("/increment")
+        public ResponseEntity<String> incrementStock(@RequestBody IncrementStockRequest incrementStockRequest) {
+        articleServicePort.updateStock(incrementStockRequest.getArticleId(), incrementStockRequest.getQuantity());
+        return ResponseEntity.ok("Stock updated successfully");
+    }
+
 }

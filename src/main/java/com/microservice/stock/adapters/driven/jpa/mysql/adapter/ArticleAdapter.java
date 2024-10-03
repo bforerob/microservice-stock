@@ -7,6 +7,7 @@ import com.microservice.stock.domain.model.Article;
 import com.microservice.stock.domain.model.Category;
 import com.microservice.stock.domain.spi.IArticlePersistencePort;
 import com.microservice.stock.domain.util.CustomPage;
+import jakarta.transaction.Transactional;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,5 +45,11 @@ public class ArticleAdapter implements IArticlePersistencePort {
 
         List<Article> articles = articleEntityMapper.articleEntityPageToModelList(articlesPage);
         return new CustomPage<>(articles, pageNumber, pageSize, articlesPage.getTotalElements(), articlesPage.getTotalPages());
+    }
+
+    @Transactional
+    @Override
+    public void updateStock(Long articleId, Integer amount) {
+        articleRepository.incrementQuantity(articleId, amount);
     }
 }
